@@ -111,3 +111,21 @@ if (!function_exists('hump_to_line')) {
         return $str;
     }
 }
+if (!function_exists("httpGet")){
+    function httpGet($url,$post='')
+    {
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 500);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        if($post) {
+            curl_setopt($curl, CURLOPT_POST, 1);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $post);
+        }
+        $res = curl_exec($curl);
+        curl_close($curl);
+        return $res;
+    }
+}
